@@ -49,7 +49,7 @@ ul.social-icons {
     transition: .5s;
 }
 .fa-github:hover {
-    color: #6e5494;
+    color: #b642f5;
 }
 .fa-linkedin {
     padding:10px 14px;
@@ -71,27 +71,23 @@ ul.social-icons {
     transition: .5s;
 }
 .fa-envelope:hover {
-    color: #BF4D28;
+    color: #f54242;
 }
 .social-title {
 	font-family: 'Abril Fatface';
     font-size: 5vmax;
     color: #322f30;
-    -o-transition:.5s;
-    -ms-transition:.5s;
-    -moz-transition:.5s;
-    -webkit-transition:.5s;
-    transition: .5s;
 }
 .social-subtitle {
     font-family: 'Playfair Display';
     font-size: 1.7vmax;
     color: #322f30;
-    -o-transition:.5s;
-    -ms-transition:.5s;
-    -moz-transition:.5s;
-    -webkit-transition:.5s;
-    transition: .5s;
+}
+.social-phrase {
+    font-family: 'Abril Fatface';
+    font-size: 1.2vmax;
+    color: #322f30;
+    text-decoration: none;
 }
 .citation {
     font-family: 'Homemade Apple';
