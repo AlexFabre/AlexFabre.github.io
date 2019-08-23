@@ -5,14 +5,14 @@
 /***** Main style *****/
 
 body {
-    background: #FFFFFF;
+    background: white;
 } 
 p {
     text-align: center;
 }
 .social {
-	margin-top: 8vmax;
-	margin-bottom: 4vmax;
+	margin-top: 10vmax;
+	margin-bottom: 6vmax;
     position: center;
     top: 50%;
     left: 50%;
@@ -25,7 +25,7 @@ ul {
     list-style: none;
 }
 .social-icon {
-    color: #322f30;
+    color: #333333;
 }
 ul.social-icons {
     margin-top: 10px;
@@ -37,7 +37,7 @@ ul.social-icons {
 }
 .social-icons a {
 	font-size:2.5vmax;
-    color: #322f30;
+    color: #333333;
     text-decoration: none;
 }
 .fa-github {
@@ -76,21 +76,21 @@ ul.social-icons {
 .social-title {
 	font-family: 'Abril Fatface';
     font-size: 5vmax;
-    color: #322f30;
+    color: #333333;
 }
 .social-subtitle {
     font-family: 'Playfair Display';
-    font-size: 1.7vmax;
-    color: #322f30;
+    font-size: 2vmax;
+    color: #333333;
 }
 .social-phrase {
     font-family: 'Abril Fatface';
     font-size: 1.2vmax;
-    color: #322f30;
+    color: #333333;
     text-decoration: none;
 }
 .citation {
     font-family: 'Homemade Apple';
     font-size: 1.7vmax;
-    color: #322f30;
+    color: #333333;
 }
