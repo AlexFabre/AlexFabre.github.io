@@ -26,7 +26,7 @@
 <p>&quot;<em>I have a SSD attached to my Raspberry Pi and I want to make it accessible to everyone in <strong>read only</strong> and myself in <strong>read and write</strong>.</em>&quot;</p>
 <h2 id="prerequisite">Prerequisite</h2>
 <ul>
-<li>Make sure your drive is mounted automaticaly at boot. (create mountpoint folder and edit fstab). In this example mine is under <code>/mnt/Drive</code>.</li>
+<li>Make sure your drive is mounted automatically at boot. (create mount-point folder and edit fstab). In this example mine is under <code>/mnt/Drive</code>.</li>
 <li>The user I will give RW access is the default <strong>pi</strong> user. Do it with any user you want.</li>
 </ul>
 <h2 id="installation">Installation</h2>
@@ -39,7 +39,7 @@
 <h3 id="then-edit-the-samba-configuration-file">Then edit the samba configuration file.</h3>
 <pre><code class="language-sh"><div>$ sudo nano /etc/samba/smb.conf
 </div></code></pre>
-<p>Comment the Home section if you don't need your RW user to access its home repo. Add <code>;</code> in front on lines.</p>
+<p>Comment the Home section if you don't need your RW user to access its home repositories. Add <code>;</code> in front on lines.</p>
 <pre><code class="language-sh"><div>;[homes]
 ;   comment = Home Directories
 ;   browseable = no
@@ -63,7 +63,7 @@
 <span class="hljs-comment"># This might need tweaking when using external authentication schemes</span>
 ;   valid users = %S
 </div></code></pre>
-<p>Also comment the printer section if you don't plan to make any printer accessible through your Rapsberry.</p>
+<p>Also comment the printer section if you don't plan to make any printer accessible through your Raspberry.</p>
 <pre><code class="language-sh"><div>;[printers]
 ;   comment = All Printers
 ;   browseable = no
@@ -101,7 +101,7 @@
 <h3 id="add-your-user-to-the-samba-user-list">Add your user to the samba user list.</h3>
 <pre><code class="language-sh"><div>$ sudo smbpasswd -a pi
 </div></code></pre>
-<h3 id="and-finaly-restart-the-samba-service">And finaly restart the samba service</h3>
+<h3 id="and-finally-restart-the-samba-service">And finally restart the samba service</h3>
 <pre><code class="language-sh"><div>$ sudo systemctl restart smbd
 </div></code></pre>
 

@@ -5,7 +5,7 @@
 
 ## Prerequisite
 
-* Make sure your drive is mounted automaticaly at boot. (create mountpoint folder and edit fstab). In this example mine is under ```/mnt/Drive```.
+* Make sure your drive is mounted automatically at boot. (create mount-point folder and edit fstab). In this example mine is under ```/mnt/Drive```.
 * The user I will give RW access is the default __pi__ user. Do it with any user you want.
 
 ## Installation
@@ -26,7 +26,7 @@ $ sudo chown -R pi:pi /mnt/Drive
 $ sudo nano /etc/samba/smb.conf
 ```
 
-Comment the Home section if you don't need your RW user to access its home repo. Add ```;``` in front on lines.
+Comment the Home section if you don't need your RW user to access its home repositories. Add ```;``` in front on lines.
 
 ```sh
 ;[homes]
@@ -53,7 +53,7 @@ Comment the Home section if you don't need your RW user to access its home repo.
 ;   valid users = %S
 ```
 
-Also comment the printer section if you don't plan to make any printer accessible through your Rapsberry.
+Also comment the printer section if you don't plan to make any printer accessible through your Raspberry.
 
 ```sh
 ;[printers]
@@ -97,7 +97,7 @@ _Notice the ```write list = pi``` line that give write access only to __pi__ use
 $ sudo smbpasswd -a pi
 ```
 
-### And finaly restart the samba service
+### And finally restart the samba service
 
 ```sh
 $ sudo systemctl restart smbd
