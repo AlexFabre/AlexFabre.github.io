@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Raspberry | Samba</title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.2/dist/katex.min.css" integrity="sha384-yFRtMMDnQtDRO8rLpMIKrtPCD5jdktao2TV19YiZYWMDkUR5GQZR/NOVTdquEx1j" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
+        <link href="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.css" rel="stylesheet" type="text/css">
+        <style>
+.task-list-item { list-style-type: none; } .task-list-item-checkbox { margin-left: -20px; vertical-align: middle; }
+</style>
+        <style>
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', 'Ubuntu', 'Droid Sans', sans-serif;
+                font-size: 14px;
+                line-height: 1.6;
+            }
+        </style>
+        
+        <script src="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.js"></script>
+    </head>
+    <body class="vscode-light">
+        <h1 id="raspberry--samba">Raspberry | Samba</h1>
+<p>19 May 2020</p>
+<p>&quot;<em>I have a SSD attached to my Raspberry Pi and I want to make it accessible to everyone in <strong>read only</strong> and myself in <strong>read and write</strong>.</em>&quot;</p>
+<h2 id="prerequisite">Prerequisite</h2>
+<ul>
+<li>Make sure your drive is mounted automaticaly at boot. (create mountpoint folder and edit fstab). In this example mine is under <code>/mnt/Drive</code>.</li>
+<li>The user I will give RW access is the default <strong>pi</strong> user. Do it with any user you want.</li>
+</ul>
+<h2 id="installation">Installation</h2>
+<pre><code class="language-sh"><div>$ sudo apt install samba samba-common-bin
+</div></code></pre>
+<h2 id="configuration">Configuration</h2>
+<h3 id="first-give-ownership-of-the-shared-folder-to-the-desired-rw-user">First give ownership of the shared folder to the desired RW user.</h3>
+<pre><code class="language-sh"><div>$ sudo chown -R pi:pi /mnt/Drive
+</div></code></pre>
+<h3 id="then-edit-the-samba-configuration-file">Then edit the samba configuration file.</h3>
+<pre><code class="language-sh"><div>$ sudo nano /etc/samba/smb.conf
+</div></code></pre>
+<p>Comment the Home section if you don't need your RW user to access its home repo. Add <code>;</code> in front on lines.</p>
+<pre><code class="language-sh"><div>;[homes]
+;   comment = Home Directories
+;   browseable = no
+
+<span class="hljs-comment"># By default, the home directories are exported read-only. Change the</span>
+<span class="hljs-comment"># next parameter to 'no' if you want to be able to write to them.</span>
+;   <span class="hljs-built_in">read</span> only = yes
+
+<span class="hljs-comment"># File creation mask is set to 0700 for security reasons. If you want to</span>
+<span class="hljs-comment"># create files with group=rw permissions, set next parameter to 0775.</span>
+;   create mask = 0700
+
+<span class="hljs-comment"># Directory creation mask is set to 0700 for security reasons. If you want to</span>
+<span class="hljs-comment"># create dirs. with group=rw permissions, set next parameter to 0775.</span>
+;   directory mask = 0700
+
+<span class="hljs-comment"># By default, \\server\username shares can be connected to by anyone</span>
+<span class="hljs-comment"># with access to the samba server.</span>
+<span class="hljs-comment"># The following parameter makes sure that only "username" can connect</span>
+<span class="hljs-comment"># to \\server\username</span>
+<span class="hljs-comment"># This might need tweaking when using external authentication schemes</span>
+;   valid users = %S
+</div></code></pre>
+<p>Also comment the printer section if you don't plan to make any printer accessible through your Rapsberry.</p>
+<pre><code class="language-sh"><div>;[printers]
+;   comment = All Printers
+;   browseable = no
+;   path = /var/spool/samba
+;   printable = yes
+;   guest ok = no
+;   <span class="hljs-built_in">read</span> only = yes
+;   create mask = 0700
+
+<span class="hljs-comment"># Windows clients look for this share name as a source of downloadable</span>
+<span class="hljs-comment"># printer drivers</span>
+;[<span class="hljs-built_in">print</span>$]
+;   comment = Printer Drivers
+;   path = /var/lib/samba/printers
+;   browseable = yes
+;   <span class="hljs-built_in">read</span> only = yes
+;   guest ok = no
+<span class="hljs-comment"># Uncomment to allow remote administration of Windows print drivers.</span>
+<span class="hljs-comment"># You may need to replace 'lpadmin' with the name of the group your</span>
+<span class="hljs-comment"># admin users are members of.</span>
+<span class="hljs-comment"># Please note that you also need to set appropriate Unix permissions</span>
+<span class="hljs-comment"># to the drivers directory for these users to have write rights in it</span>
+;   write list = root, @lpadmin
+</div></code></pre>
+<h3 id="configure-your-shared-folder-properties">Configure your shared folder properties:</h3>
+<pre><code class="language-sh"><div>[Drive]
+   comment = SSD 500Go
+   path = /mnt/Drive
+   <span class="hljs-built_in">read</span> only = yes
+   write list = pi
+   guest ok = yes
+   hide files = /lost+found/.Trash*/*.bak/
+</div></code></pre>
+<p><em>Notice the <code>write list = pi</code> line that give write access only to <strong>pi</strong> user.</em></p>
+<h3 id="add-your-user-to-the-samba-user-list">Add your user to the samba user list.</h3>
+<pre><code class="language-sh"><div>$ sudo smbpasswd -a pi
+</div></code></pre>
+<h3 id="and-finaly-restart-the-samba-service">And finaly restart the samba service</h3>
+<pre><code class="language-sh"><div>$ sudo systemctl restart smbd
+</div></code></pre>
+
+    </body>
+    </html>
