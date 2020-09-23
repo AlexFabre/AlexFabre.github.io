@@ -11,10 +11,10 @@ p {
     text-align: center;
 }
 .social {
-	margin-top: 10vmax;
-	margin-bottom: 6vmax;
+	margin-top: 10rem;
+	margin-bottom: 6rem;
     position: center;
-    top: 50%;
+    top: 40%;
     /* left: 50%; */
 }
 
@@ -33,10 +33,9 @@ ul.social-icons {
 .social-icons li {
     vertical-align: top;
     display: inline;
-    height: 100px;
 }
 .social-icons a {
-	font-size:2.5vmax;
+	font-size:2.5rem;
     color: #333333;
     text-decoration: none;
 }
@@ -75,22 +74,63 @@ ul.social-icons {
 }
 .social-title {
 	font-family: 'Abril Fatface';
-    font-size: 5vmax;
+    font-size: 5rem;
     color: #333333;
 }
 .social-subtitle {
     font-family: 'Playfair Display';
-    font-size: 2vmax;
+    font-size: 2rem;
     color: #333333;
+}
+.social-skills {
+    padding-top: 30px;
+    padding-bottom: 20px;
+}
+.svg {
+    padding: 2rem;
+    margin: 0.5rem;
+    opacity: 0.2;
+    filter: grayscale(100%);
+    transition: .5s;
+}
+.svg:hover {
+    opacity: 1;
+    filter: grayscale(0%);
+    transition: .5s;
+}
+.arm {
+    background: url(../Arm_logo_2017.svg);
+    background-size: contain ;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+.riskV {
+    min-width: 5rem;
+    background: url(../RISC-V-logo.svg);
+    background-size: contain ;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+.rust {
+    background: url(../RUST-logo-blk.svg);
+    background-size: contain ;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+.c {
+    background: url(../C_Programming_Language_logo.svg);
+    background-size: contain ;
+    background-position: center;
+    background-repeat: no-repeat;
 }
 .social-phrase {
     font-family: 'Abril Fatface';
-    font-size: 1.2vmax;
+    font-size: 1.4rem;
     color: #333333;
     text-decoration: none;
 }
 .citation {
     font-family: 'Homemade Apple';
-    font-size: 1.7vmax;
+    font-size: 1.7rem;
     color: #333333;
 }
