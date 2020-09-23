@@ -86,7 +86,30 @@ ul.social-icons {
     padding-top: 30px;
     padding-bottom: 20px;
 }
+.arm {
+    background: url(img/Arm_logo_2017.svg);
+}
+.riskV {
+    min-width: 4rem;
+    background: url(img/RISC-V-logo.svg);
+}
+.rust {
+    background: url(img/RUST-logo-blk.svg);
+}
+.c {
+    background: url(img/C_Programming_Language_logo.svg);
+}
+.kicad {
+    background: url(img/kiCad-Logo.svg);
+}
+.altium {
+    min-width: 2.3rem;
+    background: url(img/altium-logo.svg);
+}
 .svg {
+    background-size: contain ;
+    background-position: center;
+    background-repeat: no-repeat;
     padding: 2rem;
     margin: 0.5rem;
     opacity: 0.2;
@@ -97,31 +120,6 @@ ul.social-icons {
     opacity: 1;
     filter: grayscale(0%);
     transition: .5s;
-}
-.arm {
-    background: url(img/Arm_logo_2017.svg);
-    background-size: contain ;
-    background-position: center;
-    background-repeat: no-repeat;
-}
-.riskV {
-    min-width: 5rem;
-    background: url(img/RISC-V-logo.svg);
-    background-size: contain ;
-    background-position: center;
-    background-repeat: no-repeat;
-}
-.rust {
-    background: url(img/RUST-logo-blk.svg);
-    background-size: contain ;
-    background-position: center;
-    background-repeat: no-repeat;
-}
-.c {
-    background: url(img/C_Programming_Language_logo.svg);
-    background-size: contain ;
-    background-position: center;
-    background-repeat: no-repeat;
 }
 .social-phrase {
     font-family: 'Abril Fatface';
