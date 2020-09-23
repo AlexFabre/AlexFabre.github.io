@@ -99,26 +99,26 @@ ul.social-icons {
     transition: .5s;
 }
 .arm {
-    background: url(../img/Arm_logo_2017.svg);
+    background: url(img/Arm_logo_2017.svg);
     background-size: contain ;
     background-position: center;
     background-repeat: no-repeat;
 }
 .riskV {
     min-width: 5rem;
-    background: url(../img/RISC-V-logo.svg);
+    background: url(img/RISC-V-logo.svg);
     background-size: contain ;
     background-position: center;
     background-repeat: no-repeat;
 }
 .rust {
-    background: url(../img/RUST-logo-blk.svg);
+    background: url(img/RUST-logo-blk.svg);
     background-size: contain ;
     background-position: center;
     background-repeat: no-repeat;
 }
 .c {
-    background: url(../img/C_Programming_Language_logo.svg);
+    background: url(img/C_Programming_Language_logo.svg);
     background-size: contain ;
     background-position: center;
     background-repeat: no-repeat;
