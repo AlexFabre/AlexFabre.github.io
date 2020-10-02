@@ -1,11 +1,15 @@
 # Tutorials
 
-19 May 2020
+02 October 2020
 
-## Raspberry Pi projects
+## Raspberry Pi
 
 [File sharing with Samba](Samba.html)
 
 ## SPICE
 
 [Pspice documentation](https://stuffle.website/references/PSpice_help/)
+
+## CAO
+
+[Rules for a board making](CAO_rules.html)
