@@ -2,7 +2,7 @@
     <html>
     <head>
         <meta charset="UTF-8">
-        <title>Tutorials</title>
+        <title>Project Organisation</title>
         <style>
 /* From extension zhuangtongfa.material-theme */
 .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body {
@@ -674,21 +674,100 @@ hue-6-2: #e6c07b
         
     </head>
     <body class="vscode-light">
-        <h1 id="tutorials">Tutorials</h1>
-<p>02 October 2020</p>
-<h2 id="firmware">Firmware</h2>
-<p><a href="project_structure.html">Embedded project organbisation</a></p>
+        <h1 id="project-organisation">Project Organisation</h1>
+<p>07 October 2020</p>
+<p><em>A unified way to organize code directories and files of embedded projects alongside ST Cube IDE's files and folders</em></p>
+<h2 id="structure">Structure</h2>
+<pre><code><code><div>PCB_ID 
+|
+|
+└───Inc
+|   |   main.h
+|   |   ...
+|   |
+|   └───com                     /* Communication headers */
+|   |       com_process.h
+|   |       com_command.h
+|   |
+|   └───generic_peripheral      /* Drivers headers with no specific modification for the project */
+|   |       l647x.h
+|   |       l6470.h
+|   |       l6472.h
+|   |       mcp23sxx.h
+|   |       ...
+|   |
+|   └───motor                   /* Motors headers accessible to non-coders */
+|   |       motor_generic_cmd.h
+|   |       motor_FIX.h
+|   |       motor_GRABBER.h
+|   |       ...
+|   |
+|   └───peripheral              /* Physical parts functions */
+|   |       pump.h
+|   |       valve.h
+|   |       ...
+|   └───sequence
+|           sequence.h
+|           ...
+|
+└───Src
+│   │   main.c
+│   │   ...
+│   |
+|   └───com
+|   |       com_process.c
+|   |
+|   └───generic_peripheral      /* Drivers generic functions */
+|   |       l647x.c
+|   |       mcp23s17.c
+|   |
+|   └───motor
+|   |       motor_generic_cmd.c
+|   |       motor.c
+|   |
+|   └───peripheral              /* Drivers and parts headers specific to the project */
+|   |       pump.c
+|   |       valve.c
+|   |       ...
+|   |
+│   └───sequence                /* Integrators sequences */
+│   |       _shadow_sequence.c
+│   |       integrator_sequence.c
+|   |       ...
+|   |
+|   └───task                    /* All the RTOS tasks */
+|   |   └───motor
+|   |   |       motor_init_task.c
+|   |   |       FIX_task.c
+|   |   |       GRABBER_task.c
+|   |   |       ...
+|   |   |
+|   |   └───com
+|   |   |       com_manager_task.c
+|   |   |
+|   |   └───sequence 
+|   |   |       work_task.c
+|   |   |
+|   |   └───peripheral
+|   |           pump_task.c
+|   |           ...
+</div></code></code></pre>
+<h2 id="rules">Rules</h2>
+<ul>
+<li><strong>header</strong> files (*.h) go into <strong>Inc/</strong> directory</li>
+<li><strong>source</strong> files (*.c) go into <strong>Src/</strong> directory</li>
+<li><strong>One file per object and one task per file</strong></li>
+</ul>
+<h2 id="versioning">Versioning</h2>
+<p><em>Only repositories needed to generate the project must be versioned.</em></p>
+<p>All output directories listed below must be left unversioned:</p>
+<ul>
+<li><strong>Debug</strong> Contains the compilation output files when debugging project (-DDEBUG).</li>
+<li><strong>Release</strong> Contains the same output files but when compiled in Release.</li>
+<li><strong>.settings</strong> Contains Eclipse local language settings.</li>
+</ul>
 <hr>
-<h2 id="software">Software</h2>
-<h3 id="raspberry-pi">Raspberry Pi</h3>
-<p><a href="Samba.html">File sharing with Samba</a></p>
-<hr>
-<h2 id="hardware">Hardware</h2>
-<h3 id="spice">SPICE</h3>
-<p><a href="https://stuffle.website/references/PSpice_help/">Pspice documentation</a></p>
-<h3 id="altium">Altium</h3>
-<p><a href="CAO_rules.html">Rules for a board making</a></p>
-<hr>
+<p>Alex Fabre</p>
 
     </body>
     </html>

@@ -1,15 +1,28 @@
 # Tutorials
-
 02 October 2020
 
-## Raspberry Pi
+## Firmware
+
+[Embedded project organbisation](project_structure.html)
+
+_ _ _
+
+## Software
+
+### Raspberry Pi
 
 [File sharing with Samba](Samba.html)
 
-## SPICE
+_ _ _
+
+## Hardware
+
+### SPICE
 
 [Pspice documentation](https://stuffle.website/references/PSpice_help/)
 
-## CAO
+### Altium
 
 [Rules for a board making](CAO_rules.html)
+
+_ _ _
