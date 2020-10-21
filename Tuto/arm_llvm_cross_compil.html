@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="UTF-8">
+        <title>ARM-cortex LLVM cross compilation</title>
+        <style>
+</style>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.2/dist/katex.min.css" integrity="sha384-yFRtMMDnQtDRO8rLpMIKrtPCD5jdktao2TV19YiZYWMDkUR5GQZR/NOVTdquEx1j" crossorigin="anonymous">
+<link href="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.css" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
+<style>
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', system-ui, 'Ubuntu', 'Droid Sans', sans-serif;
+                font-size: 14px;
+                line-height: 1.6;
+            }
+        </style>
+        <style>
+.task-list-item { list-style-type: none; } .task-list-item-checkbox { margin-left: -20px; vertical-align: middle; }
+</style>
+        
+        <script src="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.js"></script>
+        
+    </head>
+    <body class="vscode-light">
+        <h1 id="arm-cortex-llvm-cross-compilation">ARM-cortex LLVM cross compilation</h1>
+<h2 id="install-dependencies">Install dependencies</h2>
+<p>If you see this librarie missing : &quot;stubs-32.h&quot;</p>
+<pre><code class="language-sh"><div>sudo apt install libc6-dev-i386
+</div></code></pre>
+<h2 id="download-llvm-sources">Download LLVM sources</h2>
+<h2 id="refactor-sources">Refactor sources</h2>
+<pre><code class="language-sh"><div><span class="hljs-meta">#!/bin/bash
+ </span>
+<span class="hljs-built_in">echo</span> <span class="hljs-string">"Setting CC variable to arm-none-eabi-gcc..."</span>
+sed -i <span class="hljs-string">'s/RM := .*/&amp;\nCC := arm-none-eabi-gcc/g'</span> Debug/makefile
+ 
+ 
+<span class="hljs-built_in">echo</span> <span class="hljs-string">"Replacing compiler with CC variable..."</span>
+<span class="hljs-keyword">for</span> mkfile <span class="hljs-keyword">in</span> $(grep -rl --exclude=makefile arm-none-eabi-gcc Debug)
+<span class="hljs-keyword">do</span>
+    sed -i <span class="hljs-string">'s/arm-none-eabi-gcc/$(CC)/g'</span> <span class="hljs-variable">$mkfile</span>
+<span class="hljs-keyword">done</span>
+ 
+ 
+<span class="hljs-built_in">echo</span> <span class="hljs-string">"replacing -Og with one clang recognizes..."</span>
+<span class="hljs-keyword">for</span> mkfile <span class="hljs-keyword">in</span> $(grep -rl <span class="hljs-string">'\-Og'</span> Debug)
+<span class="hljs-keyword">do</span>
+    sed -i <span class="hljs-string">'s/-Og/-O2/g'</span> <span class="hljs-variable">$mkfile</span>
+<span class="hljs-keyword">done</span>
+ 
+ 
+FIND=<span class="hljs-string">'\([ \t]*\)\(.*:[ ]"r"[ ](\)\([a-zA-Z0-9_]*\)\()[ ]:[ ]"vfpcc");\)'</span>
+REPLACE=<span class="hljs-string">'#ifdef __clang__\n\1__builtin_arm_set_fpscr(\3);\n#else\n&amp;\n#endif'</span>
+ 
+<span class="hljs-built_in">echo</span> <span class="hljs-string">"replacing vfpcc with clang builtin"</span>
+<span class="hljs-keyword">for</span> srcfile <span class="hljs-keyword">in</span> $(grep -rl vfpcc .)
+<span class="hljs-keyword">do</span>
+<span class="hljs-keyword">if</span> [[ <span class="hljs-variable">$srcfile</span> != *<span class="hljs-variable">$0</span> ]]
+<span class="hljs-keyword">then</span>
+    <span class="hljs-built_in">echo</span> <span class="hljs-string">"add clang builtin for vfpcc <span class="hljs-variable">$srcfile</span>"</span>
+    sed -i <span class="hljs-string">'s/'</span><span class="hljs-string">"<span class="hljs-variable">$FIND</span>"</span><span class="hljs-string">'/'</span><span class="hljs-string">"<span class="hljs-variable">$REPLACE</span>"</span><span class="hljs-string">'/g'</span> <span class="hljs-variable">$srcfile</span>
+<span class="hljs-keyword">fi</span>
+<span class="hljs-keyword">done</span>
+ 
+<span class="hljs-built_in">echo</span> -e <span class="hljs-string">"you can use scan-build for analysis.\n\n"</span>
+</div></code></pre>
+<p>or compile with option -mfpu=none</p>
+<p>scan-build --use-cc=/usr/bin/arm-none-eabi-gcc --analyzer-target=arm-none-eabi make -C Debug</p>
+
+    </body>
+    </html>

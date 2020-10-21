@@ -7,6 +7,8 @@
 
 [ARM Toolchain for Ubuntu](arm_toolchain_ubuntu.html)
 
+[ARM LLVM Cross compilation](arm_llvm_cross_compil.html)
+
 _ _ _
 
 ## Software
