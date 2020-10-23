@@ -3,7 +3,7 @@
 
 ## Firmware
 
-[Embedded project organbisation](project_structure.html)
+[Embedded project organisation](project_structure.html)
 
 [ARM Toolchain for Ubuntu](arm_toolchain_ubuntu.html)
 
